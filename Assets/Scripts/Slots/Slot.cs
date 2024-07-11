@@ -9,6 +9,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     public int SlotIndex { get; private set; }
     public int Bet { get; private set; }
     public event Action<Slot> OnSlotClick;
+    public event Action OnBetChanged;
 
     [SerializeField] TextMeshProUGUI _betTxt;
 
@@ -32,6 +33,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     }
     private void UpdateBetTxt()
     {
+        OnBetChanged?.Invoke();
         _betTxt.text = Bet.ToString();
     }
 

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Wheel : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField]
     private Sector _sectorPrefabs;
+    [SerializeField]
+    private List<Color> _colors;
     private int angleStep = 20;
     private List<Sector> _sectors = new();
 
@@ -20,7 +22,7 @@ public class Wheel : MonoBehaviour
     {
         SetupSectors();
     }
-    private void SetupSectors() 
+    private void SetupSectors()
     {
         _isSpinning = false;
         _isReady = true;
@@ -34,13 +36,13 @@ public class Wheel : MonoBehaviour
             sector.transform.rotation = Quaternion.Euler(0, 0, -angle);
             int multiplier;
             if (i == 0) multiplier = 5;
-            else if (i == 1 || i == 17 || i == 4|| i == 8 || i==10 || i == 13) multiplier = 2;
+            else if (i == 1 || i == 17 || i == 4 || i == 8 || i == 10 || i == 13) multiplier = 2;
             else if (i == 9 || i == 5 || i == 14) multiplier = 3;
             else multiplier = 1;
-            sector.Setup(multiplier, new(angle, angle + angleStep), angle);
+            sector.Setup(multiplier, new(angle - angleStep/2, angle + angleStep/2), angle, _colors[i % 2 == 0 ? 0 : 1]);
+            sector.transform.SetAsFirstSibling();
             _sectors.Add(sector);
         }
-
     }
     private void Update()
     {
@@ -57,7 +59,7 @@ public class Wheel : MonoBehaviour
             }
         }
     }
-    private Sector GetSector() 
+    private Sector GetSector()
     {
         return _sectors.Find(x => x.IsInRange(transform.rotation.eulerAngles.z));
     }

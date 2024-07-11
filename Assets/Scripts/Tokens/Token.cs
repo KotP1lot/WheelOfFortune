@@ -8,7 +8,7 @@ public class Token : MonoBehaviour, IPointerClickHandler
     public int Value { get; private set; }
     public event Action<Token> OnTokenClick;
     private RectTransform _rect;
-    private void Start()
+    private void Awake()
     {
         _rect = GetComponent<RectTransform>();
     }

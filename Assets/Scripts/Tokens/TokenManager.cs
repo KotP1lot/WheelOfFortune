@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class TokenManager : MonoBehaviour
 {
@@ -8,6 +7,10 @@ public class TokenManager : MonoBehaviour
     [SerializeField] private List<Slot> _slots;
     [SerializeField] private Money _money;
     private int _currTokenValue;
+    private void Start()
+    {
+        OnTokenClickHandler(_tokens[2]);
+    }
     private void OnTokenClickHandler(Token target)
     {
         _currTokenValue = target.Value;
@@ -37,7 +40,6 @@ public class TokenManager : MonoBehaviour
             token.OnTokenClick += OnTokenClickHandler;
         foreach (var slot in _slots)
             slot.OnSlotClick += OnSlotClickHandler;
-        OnTokenClickHandler(_tokens[2]);
     }
     private void OnDisable()
     {
