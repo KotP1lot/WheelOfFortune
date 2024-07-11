@@ -54,9 +54,7 @@ public class Wheel : MonoBehaviour
                 Sector currSector = GetSector();
                 transform.rotation = Quaternion.Euler(0, 0, currSector.Angle);
                 _rb.angularVelocity = 0;
-                OnWheelSpinComplete?.Invoke(currSector.Slot);
-                Debug.Log(currSector.Slot);
-            }
+                OnWheelSpinComplete?.Invoke(currSector.Slot);            }
         }
     }
     private Sector GetSector()
